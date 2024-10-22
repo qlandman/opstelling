@@ -1,14 +1,14 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
+# from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
 # Set up Jinja2 templates
 templates = Jinja2Templates(directory="templates")
 
-# Mount static files (for CSS)
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# # Mount static files (for CSS)
+# app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/")
