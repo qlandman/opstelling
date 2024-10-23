@@ -1,48 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player Form</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Team Selection Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+
+    <style>
+        .checkbox-column {
+            min-width: 100px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
     <section class="section">
         <div class="container">
-            <h1>Add something more!!!</h1>
-            <h1 class="title">Player Form</h1>
-            <form action="/submit" method="post">
-                <div class="field">
-                    <label class="label">Speler</label>
-                    <div class="control">
-                        <input class="input" type="text" name="speler" required>
-                    </div>
-                </div>
-                
-                <div class="field">
-                    <div class="control">
-                        <label class="checkbox">
-                            <input type="checkbox" name="keeper">
-                            Keeper
-                        </label>
-                    </div>
-                </div>
-                
-                <div class="field">
-                    <div class="control">
-                        <label class="checkbox">
-                            <input type="checkbox" name="aanwezig" checked>
-                            Aanwezig
-                        </label>
-                    </div>
-                </div>
-                
+            <h1 class="title">Team</h1>
+            <form hx-post="/submit" hx-target="#result">                <div class="columns is-multiline">
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Available</th>
+                            <th>Keeper</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in team_members %}
+                        <tr>
+                            <td>{{ member }}</td>
+                            <td>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="available" value="{{ member }}" checked>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="keepers" value="{{ member }}">
+                                </label>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
                 <div class="field">
                     <div class="control">
                         <button class="button is-primary" type="submit">Submit</button>
                     </div>
                 </div>
             </form>
+            <div id="result"></div>
+
         </div>
     </section>
 </body>

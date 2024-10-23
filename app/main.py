@@ -12,23 +12,32 @@ app = FastAPI()
 # Set up Jinja2 templates
 templates = Jinja2Templates(directory=f"{dir_path}/templates")
 
+team_members: list[str] = [
+    "Benjamin",
+    "Vik",
+    "Vigo",
+    "Can",
+    "Njabulo",
+    "Lars",
+    "Sebas",
+    "Kees",
+    "Hamza",
+]
+
 # # Mount static files (for CSS)
 # app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/")
 async def read_form(request: Request):
-    return templates.TemplateResponse("form.html", {"request": request})
+    return templates.TemplateResponse(
+        "form.html", {"request": request, "team_members": team_members}
+    )
 
 
 @app.post("/submit")
-async def submit_form(
-    request: Request,
-    speler: str = Form(...),
-    keeper: bool = Form(False),
-    aanwezig: bool = Form(True),
-):
+async def submit_form(request: Request, available: list[str] = Form(...)):
+    available_members = [member for member in team_members if member in available]
     return templates.TemplateResponse(
-        "result.html",
-        {"request": request, "speler": speler, "keeper": keeper, "aanwezig": aanwezig},
+        "result.html", {"request": request, "available_members": available_members}
     )
