@@ -1,0 +1,12 @@
+.is-custom-color {
+    background-color: #0074c6 !important;
+    color: white !important;
+}
+
+.button.is-custom-color:hover {
+    background-color: #005fa3 !important;
+}
+
+.navbar-logo {
+    max-height: 3rem;
+}

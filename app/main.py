@@ -1,13 +1,13 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 
-# from fastapi.staticfiles import StaticFiles
+from fastapi.staticfiles import StaticFiles
 import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 print(dir_path)
 
-app = FastAPI()
+app = FastAPI(docs_url=None, redoc_url=None)
 
 # Set up Jinja2 templates
 templates = Jinja2Templates(directory=f"{dir_path}/templates")
@@ -24,8 +24,8 @@ team_members: list[str] = [
     "Hamza",
 ]
 
-# # Mount static files (for CSS)
-# app.mount("/static", StaticFiles(directory="static"), name="static")
+# Mount static files (for CSS)
+app.mount("/static", StaticFiles(directory=f"{dir_path}/static"), name="static")
 
 
 @app.get("/")
