@@ -8,13 +8,25 @@
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 
     <style>
-        .checkbox-column {
-            min-width: 100px;
-            text-align: left;
+        .is-custom-color {
+            background-color: #0074c6 !important;
+            color: white !important;
+        }
+        .button.is-custom-color:hover {
+            background-color: #005fa3 !important;
         }
     </style>
 </head>
 <body>
+    <nav class="navbar is-custom-color">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-item">
+                    <h1 class="title is-4 has-text-white">Opstelling maken</h1>
+                </span>
+            </div>
+        </div>
+    </nav>
     <section class="section">
         <div class="container">
             <h1 class="title">Team</h1>
@@ -48,13 +60,14 @@
 
                 <div class="field">
                     <div class="control">
-                        <button class="button is-primary" type="submit">Submit</button>
+                        <button class="button is-custom-color" type="submit">Maak Opstelling</button>
                     </div>
                 </div>
             </form>
-            <div id="result"></div>
+            
 
         </div>
+        <div id="result"></div>
     </section>
 </body>
 </html>
