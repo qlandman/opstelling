@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
+
 # from fastapi.staticfiles import StaticFiles
-import os 
+import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 print(dir_path)
