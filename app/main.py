@@ -12,6 +12,7 @@ app = FastAPI(docs_url=None, redoc_url=None)
 # Set up Jinja2 templates
 templates = Jinja2Templates(directory=f"{dir_path}/templates")
 
+# List of team members
 team_members: list[str] = [
     "Benjamin",
     "Vik",
