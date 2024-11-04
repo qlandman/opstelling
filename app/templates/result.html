@@ -1,8 +1,19 @@
-<h2 class="title is-4 mt-6">Available Team Members</h2>
+<h2 class="title is-4 mt-6">Opstelling</h2>
+
+{% if warnings %}
+<div class="notification is-danger">
+    <ul>
+        {% for warning in warnings %}
+        <li>{{ warning }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
 <table class="table is-fullwidth">
     <thead>
         <tr>
-            <th>Name</th>
+            <th>Naam</th>
         </tr>
     </thead>
     <tbody>

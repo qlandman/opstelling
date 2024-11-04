@@ -9,3 +9,5 @@ wheels/
 # Virtual environments
 .venv
 app/fly.toml
+.DS_Store
+.vscode/settings.json
