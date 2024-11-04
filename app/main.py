@@ -154,7 +154,7 @@ async def submit_form(
     #         matrix[2, i] = val[1]
 
     # Set the substitutes for each period
-    warnings = ["This is a test...", "And another..."]
+    warnings = []
     available_members = [member for member in team_members if member in available]
     return templates.TemplateResponse(
         "result.html",

@@ -14,12 +14,20 @@
     <thead>
         <tr>
             <th>Naam</th>
+            <th>Keepers</th>
         </tr>
     </thead>
     <tbody>
         {% for member in available_members %}
         <tr>
             <td>{{ member }}</td>
+            <td>
+                {% if member in keepers %}
+                Yes
+                {% else %}
+                No
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
