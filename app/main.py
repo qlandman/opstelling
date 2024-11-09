@@ -74,9 +74,14 @@ async def show_squad(request: Request):
 
 @app.post("/submit")
 async def submit_form(
-    request: Request, available: list[str] = Form(...), keepers: list[str] = Form(...)
+    request: Request,
+    available: list[str] = Form(...),
+    keepers: list[str] | None = Form(None),
 ):
-    print(keepers)
+    warnings: list = []
+
+    if keepers is None or len(keepers) != 4:
+        warnings.append("Selecteer 4 keepers")
     # matrix: np.array = np.full((n_team, n_periods), -1).astype(int)
 
     # # Set the keepers
@@ -154,7 +159,7 @@ async def submit_form(
     #         matrix[2, i] = val[1]
 
     # Set the substitutes for each period
-    warnings = []
+
     available_members = [member for member in team_members if member in available]
     return templates.TemplateResponse(
         "result.html",
