@@ -1,5 +1,3 @@
-<h2 class="title is-4 mt-6">Opstelling</h2>
-
 {% if warnings %}
 <div class="notification is-danger">
     <ul>
@@ -8,27 +6,28 @@
         {% endfor %}
     </ul>
 </div>
-{% endif %}
+{% else %}
 
+
+<h2 class="title is-4 mt-6">Opstelling</h2>
 <table class="table is-fullwidth">
     <thead>
         <tr>
-            <th>Naam</th>
-            <th>Keepers</th>
+            <th></th>
+            <th>Periode 1</th>
+            <th>Periode 2</th>
+            <th>Periode 3</th>
+            <th>Periode 4</th>
         </tr>
     </thead>
     <tbody>
-        {% for member in available_members %}
+        {% for row in team_table %}
         <tr>
-            <td>{{ member }}</td>
-            <td>
-                {% if member in keepers %}
-                Yes
-                {% else %}
-                No
-                {% endif %}
-            </td>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor%}
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
