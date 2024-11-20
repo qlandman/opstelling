@@ -104,7 +104,8 @@ def create_team_table(
     matrix: np.ndarray, team_members: list[str], positions: list[str], n_parts: int
 ) -> list[Any]:
 
-    team_array: np.ndarray = np.array(team_members)
+    team_array = np.array(team_members)
+
     matrix_str: np.ndarray = team_array[matrix]
 
     matrix_str_condensed: np.ndarray = np.zeros(

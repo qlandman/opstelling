@@ -32,7 +32,6 @@ async def submit_form(
 ):
     # List that holds warnings
     warnings: list[str] = []
-
     # Check the input form data
     if available is None or len(available) < 6:
         warnings.append("- Selecteer minimaal 6 spelers")
@@ -47,10 +46,8 @@ async def submit_form(
     if len(warnings) == 0:
         # Create an list with the index values of keepers
         keeper_idx = [available.index(keeper) for keeper in keepers]
-
         # Create an list with the index values of available team members
         team_idx = [Team.team_members.index(member) for member in available]
-
         n_team: int = len(available)  # Number of team members
         n_tasks: int = len(Team.positions_base)  # Number of team positions
         n_subs: int = n_team - n_tasks  # The number of subs
@@ -62,8 +59,9 @@ async def submit_form(
         matrix = generate_opstelling(
             n_team, Team.n_periods, team_idx, keeper_idx, n_subs
         )
-
-        team_table: list = create_team_table(matrix, available, positions, Team.n_parts)
+        team_table: list = create_team_table(
+            matrix, Team.team_members, positions, Team.n_parts
+        )
     else:
         team_table = []
 
