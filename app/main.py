@@ -3,8 +3,8 @@ from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
-from config import Team
-from opstelling import generate_opstelling, create_team_table
+from .config import Team
+from .opstelling import generate_opstelling, create_team_table
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 print(dir_path)
@@ -45,7 +45,7 @@ async def submit_form(
 
     if len(warnings) == 0:
         # Create an list with the index values of keepers
-        keeper_idx = [available.index(keeper) for keeper in keepers]
+        keeper_idx = [Team.team_members.index(keeper) for keeper in keepers]
         # Create an list with the index values of available team members
         team_idx = [Team.team_members.index(member) for member in available]
         n_team: int = len(available)  # Number of team members
