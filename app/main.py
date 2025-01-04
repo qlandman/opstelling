@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI, Request, Form
+from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
@@ -74,3 +75,12 @@ async def submit_form(
             "warnings": warnings,
         },
     )
+
+
+@app.get("/health")
+async def health_check():
+    """
+    Simple health check endpoint, returning a JSONResponse with a status of "OK"
+    and a HTTP status code of 200.
+    """
+    return JSONResponse(content={"status": "OK"}, status_code=200)
