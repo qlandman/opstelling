@@ -58,18 +58,24 @@ def optimize_position(
 
 
 def generate_opstelling(
-    n_team: int, n_periods: int, team_idx: list[int], keeper_idx: list[int], n_subs: int
+    n_team: int,
+    n_periods: int,
+    team_idx: list[int],
+    keeper_indices: list[int],
+    n_subs: int,
 ) -> np.ndarray:
 
     random.shuffle(team_idx)
-    random.shuffle(keeper_idx)
+    # No need to shuffle keeper_indices as they are period-specific
 
     # Set a matrix with -1 values tht will be filled
     matrix: np.ndarray = np.full((n_team, n_periods), -1).astype(int)
 
-    # Set the keepers
-    matrix[0, np.arange(len(keeper_idx)) * 2] = keeper_idx
-    matrix[0, np.arange(len(keeper_idx)) * 2 + 1] = keeper_idx
+    # Set the keepers for each period (2 columns per period)
+    for period_idx, keeper_id in enumerate(keeper_indices):
+        start_col = period_idx * 2
+        end_col = start_col + 2
+        matrix[0, start_col:end_col] = keeper_id
 
     # Set the substitutes
     sub_list: list = team_idx * (n_subs + 1)

@@ -29,7 +29,10 @@ async def show_squad(request: Request):
 async def submit_form(
     request: Request,
     available: list[str] = Form(...),
-    keepers: list[str] = Form(None),
+    keeper_p1: str | None = Form(None),  # Made optional to check explicitly
+    keeper_p2: str | None = Form(None),  # Made optional to check explicitly
+    keeper_p3: str | None = Form(None),  # Made optional to check explicitly
+    keeper_p4: str | None = Form(None),  # Made optional to check explicitly
 ):
     # List that holds warnings
     warnings: list[str] = []
@@ -37,17 +40,25 @@ async def submit_form(
     if available is None or len(available) < 6:
         warnings.append("- Selecteer minimaal 6 spelers")
 
-    if keepers is None or len(keepers) != 4:
-        warnings.append("- Selecteer 4 keepers")
+    # Collect period keepers
+    period_keepers = [keeper_p1, keeper_p2, keeper_p3, keeper_p4]
 
-    if available is not None and keepers is not None:
-        if not set(keepers).issubset(set(available)):
-            warnings.append("- Een van de geselecteerde keepers is niet aanwezig")
+    # Check if a keeper is selected for each period
+    if None in period_keepers:
+        warnings.append("- Selecteer een keeper voor elke periode")
+
+    # Check if selected keepers are available (only if all keepers were selected)
+    elif available is not None:
+        unavailable_keepers = [k for k in period_keepers if k not in available]
+        if unavailable_keepers:
+            warnings.append(
+                f"- De volgende geselecteerde keepers zijn niet aanwezig: {', '.join(unavailable_keepers)}"
+            )
 
     if len(warnings) == 0:
-        # Create an list with the index values of keepers
-        keeper_idx = [Team.team_members.index(keeper) for keeper in keepers]
-        # Create an list with the index values of available team members
+        # Create a list with the index values of period keepers
+        keeper_indices = [Team.team_members.index(k) for k in period_keepers]
+        # Create a list with the index values of available team members
         team_idx = [Team.team_members.index(member) for member in available]
         n_team: int = len(available)  # Number of team members
         n_tasks: int = len(Team.positions_base)  # Number of team positions
@@ -58,7 +69,7 @@ async def submit_form(
         positions = Team.positions_base + positions_sub
 
         matrix = generate_opstelling(
-            n_team, Team.n_periods, team_idx, keeper_idx, n_subs
+            n_team, Team.n_periods, team_idx, keeper_indices, n_subs
         )
         team_table: list = create_team_table(
             matrix, Team.team_members, positions, Team.n_parts

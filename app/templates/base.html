@@ -31,7 +31,10 @@
                         <tr>
                             <th>Name</th>
                             <th>Available</th>
-                            <th>Keeper</th>
+                            <th>Keeper - P1</th>
+                            <th>Keeper - P2</th>
+                            <th>Keeper - P3</th>
+                            <th>Keeper - P4</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,8 +47,23 @@
                                 </label>
                             </td>
                             <td>
-                                <label class="checkbox">
-                                    <input type="checkbox" name="keepers" value="{{ member }}">
+                                <label class="radio">
+                                    <input type="radio" name="keeper_p1" value="{{ member }}">
+                                </label>
+                            </td>
+                            <td>
+                                <label class="radio">
+                                    <input type="radio" name="keeper_p2" value="{{ member }}">
+                                </label>
+                            </td>
+                            <td>
+                                <label class="radio">
+                                    <input type="radio" name="keeper_p3" value="{{ member }}">
+                                </label>
+                            </td>
+                            <td>
+                                <label class="radio">
+                                    <input type="radio" name="keeper_p4" value="{{ member }}">
                                 </label>
                             </td>
                         </tr>
