@@ -11,3 +11,6 @@
     max-height: 3rem;
 }
 
+.table-container {
+    overflow-x: auto;
+}
